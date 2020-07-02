@@ -21,7 +21,6 @@ extern "C" {
 
 #include <mysql/service_base64.h>
 #include <mysql/service_debug_sync.h>
-#include <mysql/service_compression_lzma.h>
 #include <mysql/service_encryption.h>
 #include <mysql/service_encryption_scheme.h>
 #include <mysql/service_kill_statement.h>
@@ -41,7 +40,11 @@ extern "C" {
 #include <mysql/service_thd_timezone.h>
 #include <mysql/service_thd_wait.h>
 #include <mysql/service_json.h>
+
 /*#include <mysql/service_wsrep.h>*/
+
+//Dynamic Compression Libraries
+#include <mysql/lzma.h>
 
 #ifdef __cplusplus
 }
