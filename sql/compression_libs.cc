@@ -1,5 +1,18 @@
 #include "compression_libs.h"
 #include <stdio.h>
+#include <dlfcn.h>
+
+void * safe_dlsym(void *library_handle, const char *function_name){
+    // From the dlsym man page:
+    // The correct way to test for an error is to call dlerror() to clear any old
+    // error conditions, then call dlsym(), and then call dlerror() again
+    dlerror();
+	void *function_ptr = dlsym(library_handle, function_name);
+	if(dlerror())
+		function_ptr = 0;
+	
+	return function_ptr;
+}
 
 lzma_ret DUMMY_lzma_stream_buffer_decode(
 		uint64_t *, uint32_t,
@@ -28,9 +41,27 @@ void init_compression(struct compression_service_lzma_st *handler){
     compression_service_lzma->lzma_stream_buffer_decode_ptr = DUMMY_lzma_stream_buffer_decode;
     compression_service_lzma->lzma_easy_buffer_encode_ptr = DUMMY_lzma_easy_buffer_encode;
 
-    //TODO: Load library dynamically
-    if(0 /*library is loaded*/){
-        //lzma_handler.lzma_stream_buffer_decode_ptr = load_library->lzma_stream_buffer_decode_ptr;
-		//lzma_handler.lzma_easy_buffer_encode_ptr = load_library->lzma_easy_buffer_encode_ptr;
-    }
+    //Load LZMA library dynamically
+    void *lzma_library_handle = dlopen("liblzma.so", RTLD_LAZY | RTLD_GLOBAL);
+    if(!lzma_library_handle || dlerror())
+		return;
+	
+	void *lzma_stream_buffer_decode_ptr = safe_dlsym(lzma_library_handle, "lzma_stream_buffer_decode");
+	void *lzma_easy_buffer_encode_ptr = safe_dlsym(lzma_library_handle, "lzma_easy_buffer_encode");
+	if(
+		lzma_stream_buffer_decode_ptr &&
+		lzma_easy_buffer_encode_ptr
+	){
+		compression_service_lzma->lzma_stream_buffer_decode_ptr = (lzma_ret (*)(uint64_t*, uint32_t, const lzma_allocator*, const uint8_t*, size_t*, size_t, uint8_t*, size_t*, size_t)) lzma_stream_buffer_decode_ptr;
+		
+		compression_service_lzma->lzma_easy_buffer_encode_ptr = (lzma_ret (*)(unsigned int, lzma_check, const lzma_allocator*, const unsigned char*, long unsigned int, unsigned char*, long unsigned int*, long unsigned int)) lzma_easy_buffer_encode_ptr;
+	}
+	
+    // TODO: See if we should use RTLD_NODELETE on dlopen
+    // From the dlopen man page:
+    // RTLD_NODELETE (since glibc 2.2)
+    // Do not unload the library during dlclose().
+    // Consequently, the library's static variables are not reinitialized if the library is reloaded with dlopen() at a later time. This flag is not specified in POSIX.1-2001.
+
+	//dlclose(lzma_library_handle);
 }
