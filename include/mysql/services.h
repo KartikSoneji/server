@@ -44,7 +44,7 @@ extern "C" {
 /*#include <mysql/service_wsrep.h>*/
 
 //Dynamic Compression Libraries
-#include <mysql/lzma.h>
+#include <compression/lzma.h>
 
 #ifdef __cplusplus
 }

@@ -130,7 +130,8 @@ SET (SQL_SOURCE
                transaction.cc sys_vars.cc sql_truncate.cc datadict.cc
                sql_reload.cc
                
-               compression_libs.cc
+               compression/compression_libs.cc
+               compression/lzma.cc
                ../libservices/compression_lzma_service.c
 
                # added in MariaDB:
