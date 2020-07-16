@@ -1,5 +1,5 @@
 /**
-  @file include/mysql/lzma.h
+  @file include/compression/lzma.h
   This service provides dynamic access to LZMA.
 */
 
@@ -39,15 +39,21 @@ typedef enum {
 	LZMA_CHECK_SHA256   = 10
 } lzma_check;
 
+#define DEFINE_lzma_stream_buffer_decode(NAME) lzma_ret NAME(uint64_t *, uint32_t,\
+       const lzma_allocator *, const uint8_t *, size_t *,\
+	   size_t, uint8_t *, size_t *, size_t)
+
+#define DEFINE_lzma_easy_buffer_encode(NAME) lzma_ret NAME(uint32_t, lzma_check,\
+		const lzma_allocator *,\
+		const uint8_t *, size_t,\
+		uint8_t *, size_t *, size_t)
+
+typedef DEFINE_lzma_stream_buffer_decode((*PTR_lzma_stream_buffer_decode));
+typedef DEFINE_lzma_easy_buffer_encode((*PTR_lzma_easy_buffer_encode));
+
 struct compression_service_lzma_st {
-  lzma_ret (*lzma_stream_buffer_decode_ptr)(uint64_t *, uint32_t, 
-       const lzma_allocator *, const uint8_t *, size_t *,
-	   size_t, uint8_t *, size_t *, size_t);
-  
-  lzma_ret (*lzma_easy_buffer_encode_ptr)(uint32_t, lzma_check,
-		const lzma_allocator *,
-		const uint8_t *, size_t,
-		uint8_t *, size_t *, size_t);
+  PTR_lzma_stream_buffer_decode lzma_stream_buffer_decode_ptr;
+  PTR_lzma_easy_buffer_encode lzma_easy_buffer_encode_ptr;
 };
 
 extern struct compression_service_lzma_st *compression_service_lzma;

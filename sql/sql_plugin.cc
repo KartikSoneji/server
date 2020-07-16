@@ -41,7 +41,7 @@
 #include <mysql/plugin_function.h>
 #include "sql_plugin_compat.h"
 
-#include <compression_libs.h>
+#include <compression/compression_libs.h>
 
 static PSI_memory_key key_memory_plugin_mem_root;
 static PSI_memory_key key_memory_plugin_int_mem_root;
