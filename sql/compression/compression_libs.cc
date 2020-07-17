@@ -3,8 +3,6 @@
 #include <mariadb.h>
 #include <mysqld.h>
 
-#include <stdio.h>
-
 void * safe_dlsym(void *library_handle, const char *function_name){
     // From the dlsym man page:
     // The correct way to test for an error is to call dlerror() to clear any old
@@ -18,8 +16,6 @@ void * safe_dlsym(void *library_handle, const char *function_name){
 }
 
 void init_compression(struct compression_service_lzma_st *lzma_handler){
-    printf("Inside init_compression\n");
-	
 	if(enabled_compression_libraries & COMPRESSION_ALL)
 		enabled_compression_libraries--;
 	

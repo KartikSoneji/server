@@ -1,20 +1,15 @@
 #include "compression_libs.h"
-#include <stdio.h>
 #include <dlfcn.h>
 
 DEFINE_lzma_stream_buffer_decode(DUMMY_lzma_stream_buffer_decode){
-    printf("Inside DUMMY_lzma_stream_buffer_decode\n");
     return LZMA_OK;
 }
 
 DEFINE_lzma_easy_buffer_encode(DUMMY_lzma_easy_buffer_encode){
-    printf("Inside DUMMY_lzma_easy_buffer_encode\n");
     return LZMA_OK;
 }
 
 void init_lzma(struct compression_service_lzma_st *handler, bool link_library){
-    printf("Inside init_lzma\n");
-
     //point struct to right place for static plugins
     compression_service_lzma = handler;
 
