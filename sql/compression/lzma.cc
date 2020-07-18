@@ -12,7 +12,7 @@ DEFINE_lzma_easy_buffer_encode(DUMMY_lzma_easy_buffer_encode){
     return LZMA_OK;
 }
 
-void init_lzma(struct compression_service_lzma_st *handler){
+void init_lzma(struct compression_service_lzma_st *handler, bool link_library){
     printf("Inside init_lzma\n");
 
     //point struct to right place for static plugins
@@ -21,6 +21,9 @@ void init_lzma(struct compression_service_lzma_st *handler){
     compression_service_lzma->lzma_stream_buffer_decode_ptr = DUMMY_lzma_stream_buffer_decode;
     compression_service_lzma->lzma_easy_buffer_encode_ptr = DUMMY_lzma_easy_buffer_encode;
 
+	if(!link_library)
+		return;
+	
     //Load LZMA library dynamically
     void *lzma_library_handle = dlopen("liblzma.so", RTLD_LAZY | RTLD_GLOBAL);
     if(!lzma_library_handle || dlerror())

@@ -1,5 +1,7 @@
 #include "compression_libs.h"
 #include <dlfcn.h>
+#include <mariadb.h>
+#include <mysqld.h>
 
 #include <stdio.h>
 
@@ -17,6 +19,9 @@ void * safe_dlsym(void *library_handle, const char *function_name){
 
 void init_compression(struct compression_service_lzma_st *lzma_handler){
     printf("Inside init_compression\n");
-
-    init_lzma(lzma_handler);
+	
+	if(enabled_compression_libraries & COMPRESSION_ALL)
+		enabled_compression_libraries--;
+	
+    init_lzma(lzma_handler, (enabled_compression_libraries & COMPRESSION_LZMA) != 0);
 }
