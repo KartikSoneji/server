@@ -465,3 +465,257 @@ int json_unescape_json(const char *json_str, const char *json_end,
                        char *res, char *res_end);
 }
 extern "C" {
+typedef enum {
+ LZMA_OK = 0,
+ LZMA_STREAM_END = 1,
+ LZMA_NO_CHECK = 2,
+ LZMA_UNSUPPORTED_CHECK = 3,
+ LZMA_GET_CHECK = 4,
+ LZMA_MEM_ERROR = 5,
+ LZMA_MEMLIMIT_ERROR = 6,
+ LZMA_FORMAT_ERROR = 7,
+ LZMA_OPTIONS_ERROR = 8,
+ LZMA_DATA_ERROR = 9,
+ LZMA_BUF_ERROR = 10,
+ LZMA_PROG_ERROR = 11,
+} lzma_ret;
+typedef struct {
+ void *(*alloc)(void *opaque, size_t nmemb, size_t size);
+ void (*free)(void *opaque, void *ptr);
+ void *opaque;
+} lzma_allocator;
+typedef enum {
+ LZMA_CHECK_NONE = 0,
+ LZMA_CHECK_CRC32 = 1,
+ LZMA_CHECK_CRC64 = 4,
+ LZMA_CHECK_SHA256 = 10
+} lzma_check;
+typedef lzma_ret (*PTR_lzma_stream_buffer_decode)(uint64_t *, uint32_t, const lzma_allocator *, const uint8_t *, size_t *, size_t, uint8_t *, size_t *, size_t);
+typedef lzma_ret (*PTR_lzma_easy_buffer_encode)(uint32_t, lzma_check, const lzma_allocator *, const uint8_t *, size_t, uint8_t *, size_t *, size_t);
+struct compression_service_lzma_st {
+  PTR_lzma_stream_buffer_decode lzma_stream_buffer_decode_ptr;
+  PTR_lzma_easy_buffer_encode lzma_easy_buffer_encode_ptr;
+};
+extern struct compression_service_lzma_st *compression_service_lzma;
+}
+}
+struct st_mysql_xid {
+  long formatID;
+  long gtrid_length;
+  long bqual_length;
+  char data[128];
+};
+typedef struct st_mysql_xid MYSQL_XID;
+enum enum_mysql_show_type
+{
+  SHOW_UNDEF, SHOW_BOOL, SHOW_UINT, SHOW_ULONG,
+  SHOW_ULONGLONG, SHOW_CHAR, SHOW_CHAR_PTR,
+  SHOW_ARRAY, SHOW_FUNC, SHOW_DOUBLE,
+  SHOW_SINT, SHOW_SLONG, SHOW_SLONGLONG, SHOW_SIMPLE_FUNC,
+  SHOW_SIZE_T, SHOW_always_last
+};
+enum enum_var_type
+{
+  SHOW_OPT_DEFAULT= 0, SHOW_OPT_SESSION, SHOW_OPT_GLOBAL
+};
+struct st_mysql_show_var {
+  const char *name;
+  void *value;
+  enum enum_mysql_show_type type;
+};
+struct system_status_var;
+typedef int (*mysql_show_var_func)(THD*, struct st_mysql_show_var*, void *, struct system_status_var *status_var, enum enum_var_type);
+struct st_mysql_sys_var;
+struct st_mysql_value;
+typedef int (*mysql_var_check_func)(THD* thd,
+                                    struct st_mysql_sys_var *var,
+                                    void *save, struct st_mysql_value *value);
+typedef void (*mysql_var_update_func)(THD* thd,
+                                      struct st_mysql_sys_var *var,
+                                      void *var_ptr, const void *save);
+struct st_mysql_plugin
+{
+  int type;
+  void *info;
+  const char *name;
+  const char *author;
+  const char *descr;
+  int license;
+  int (*init)(void *);
+  int (*deinit)(void *);
+  unsigned int version;
+  struct st_mysql_show_var *status_vars;
+  struct st_mysql_sys_var **system_vars;
+  void * __reserved1;
+  unsigned long flags;
+};
+struct st_maria_plugin
+{
+  int type;
+  void *info;
+  const char *name;
+  const char *author;
+  const char *descr;
+  int license;
+  int (*init)(void *);
+  int (*deinit)(void *);
+  unsigned int version;
+  struct st_mysql_show_var *status_vars;
+  struct st_mysql_sys_var **system_vars;
+  const char *version_info;
+  unsigned int maturity;
+};
+extern "C" {
+enum enum_ftparser_mode
+{
+  MYSQL_FTPARSER_SIMPLE_MODE= 0,
+  MYSQL_FTPARSER_WITH_STOPWORDS= 1,
+  MYSQL_FTPARSER_FULL_BOOLEAN_INFO= 2
+};
+enum enum_ft_token_type
+{
+  FT_TOKEN_EOF= 0,
+  FT_TOKEN_WORD= 1,
+  FT_TOKEN_LEFT_PAREN= 2,
+  FT_TOKEN_RIGHT_PAREN= 3,
+  FT_TOKEN_STOPWORD= 4
+};
+typedef struct st_mysql_ftparser_boolean_info
+{
+  enum enum_ft_token_type type;
+  int yesno;
+  int weight_adjust;
+  char wasign;
+  char trunc;
+  char prev;
+  char *quot;
+} MYSQL_FTPARSER_BOOLEAN_INFO;
+typedef struct st_mysql_ftparser_param
+{
+  int (*mysql_parse)(struct st_mysql_ftparser_param *,
+                     const char *doc, int doc_len);
+  int (*mysql_add_word)(struct st_mysql_ftparser_param *,
+                        const char *word, int word_len,
+                        MYSQL_FTPARSER_BOOLEAN_INFO *boolean_info);
+  void *ftparser_state;
+  void *mysql_ftparam;
+  const struct charset_info_st *cs;
+  const char *doc;
+  int length;
+  unsigned int flags;
+  enum enum_ftparser_mode mode;
+} MYSQL_FTPARSER_PARAM;
+struct st_mysql_ftparser
+{
+  int interface_version;
+  int (*parse)(MYSQL_FTPARSER_PARAM *param);
+  int (*init)(MYSQL_FTPARSER_PARAM *param);
+  int (*deinit)(MYSQL_FTPARSER_PARAM *param);
+};
+}
+struct st_mysql_daemon
+{
+  int interface_version;
+};
+struct st_mysql_information_schema
+{
+  int interface_version;
+};
+struct st_mysql_storage_engine
+{
+  int interface_version;
+};
+struct handlerton;
+ struct Mysql_replication {
+   int interface_version;
+ };
+struct st_mysql_value
+{
+  int (*value_type)(struct st_mysql_value *);
+  const char *(*val_str)(struct st_mysql_value *, char *buffer, int *length);
+  int (*val_real)(struct st_mysql_value *, double *realbuf);
+  int (*val_int)(struct st_mysql_value *, long long *intbuf);
+  int (*is_unsigned)(struct st_mysql_value *);
+};
+extern "C" {
+int thd_in_lock_tables(const THD* thd);
+int thd_tablespace_op(const THD* thd);
+long long thd_test_options(const THD* thd, long long test_options);
+int thd_sql_command(const THD* thd);
+void thd_storage_lock_wait(THD* thd, long long value);
+int thd_tx_isolation(const THD* thd);
+int thd_tx_is_read_only(const THD* thd);
+int mysql_tmpfile(const char *prefix);
+unsigned long thd_get_thread_id(const THD* thd);
+void thd_get_xid(const THD* thd, MYSQL_XID *xid);
+void mysql_query_cache_invalidate4(THD* thd,
+                                   const char *key, unsigned int key_length,
+                                   int using_trx);
+void *thd_get_ha_data(const THD* thd, const struct handlerton *hton);
+void thd_set_ha_data(THD* thd, const struct handlerton *hton,
+                     const void *ha_data);
+void thd_wakeup_subsequent_commits(THD* thd, int wakeup_error);
+}
+extern "C" {
+struct mysql_event_general
+{
+  unsigned int event_subclass;
+  int general_error_code;
+  unsigned long general_thread_id;
+  const char *general_user;
+  unsigned int general_user_length;
+  const char *general_command;
+  unsigned int general_command_length;
+  const char *general_query;
+  unsigned int general_query_length;
+  const struct charset_info_st *general_charset;
+  unsigned long long general_time;
+  unsigned long long general_rows;
+  unsigned long long query_id;
+  MYSQL_CONST_LEX_STRING database;
+};
+struct mysql_event_connection
+{
+  unsigned int event_subclass;
+  int status;
+  unsigned long thread_id;
+  const char *user;
+  unsigned int user_length;
+  const char *priv_user;
+  unsigned int priv_user_length;
+  const char *external_user;
+  unsigned int external_user_length;
+  const char *proxy_user;
+  unsigned int proxy_user_length;
+  const char *host;
+  unsigned int host_length;
+  const char *ip;
+  unsigned int ip_length;
+  MYSQL_CONST_LEX_STRING database;
+};
+struct mysql_event_table
+{
+  unsigned int event_subclass;
+  unsigned long thread_id;
+  const char *user;
+  const char *priv_user;
+  const char *priv_host;
+  const char *external_user;
+  const char *proxy_user;
+  const char *host;
+  const char *ip;
+  MYSQL_CONST_LEX_STRING database;
+  MYSQL_CONST_LEX_STRING table;
+  MYSQL_CONST_LEX_STRING new_database;
+  MYSQL_CONST_LEX_STRING new_table;
+  int read_only;
+  unsigned long long query_id;
+};
+struct st_mysql_audit
+{
+  int interface_version;
+  void (*release_thd)(THD*);
+  void (*event_notify)(THD*, unsigned int, const void *);
+  unsigned long class_mask[1];
+};
+}

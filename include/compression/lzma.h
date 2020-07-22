@@ -8,8 +8,10 @@
 extern "C" {
 #endif
 
+#ifndef MYSQL_ABI_CHECK
 #include <stdint.h>
 #include <stddef.h>
+#endif
 
 typedef enum {
 	LZMA_OK                 = 0,
