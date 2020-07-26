@@ -170,7 +170,12 @@ SET (SQL_SOURCE
                table_cache.cc encryption.cc temporary_tables.cc
                json_table.cc
                proxy_protocol.cc backup.cc xa.cc
-               ${CMAKE_CURRENT_BINARY_DIR}/lex_hash.h
+               
+	       compression/compression_libs.cc
+	       compression/lzo.cc
+	       ../libservices/compression_lzo_service.c
+	       
+	       ${CMAKE_CURRENT_BINARY_DIR}/lex_hash.h
                ${CMAKE_CURRENT_BINARY_DIR}/lex_token.h
                ${GEN_SOURCES}
                ${MYSYS_LIBWRAP_SOURCE}
