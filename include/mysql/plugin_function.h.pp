@@ -464,6 +464,13 @@ int json_escape_string(const char *str,const char *str_end,
 int json_unescape_json(const char *json_str, const char *json_end,
                        char *res, char *res_end);
 }
+extern "C" {
+typedef unsigned long lzo_uint;
+typedef int (*PTR_lzo1x_1_15_compress)( const unsigned char *src, unsigned long src_len, unsigned char *dst, unsigned long *dst_len, void *wrkmem );
+typedef int (*PTR_lzo1x_decompress_safe)( const unsigned char *src, unsigned long src_len, unsigned char *dst, unsigned long *dst_len, void *wrkmem );
+int lzo1x_1_15_compress( const unsigned char *src, unsigned long src_len, unsigned char *dst, unsigned long *dst_len, void *wrkmem );
+int lzo1x_decompress_safe( const unsigned char *src, unsigned long src_len, unsigned char *dst, unsigned long *dst_len, void *wrkmem );
+}
 }
 struct st_mysql_xid {
   long formatID;
