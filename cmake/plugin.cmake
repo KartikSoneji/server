@@ -43,7 +43,8 @@ MACRO(MYSQL_ADD_PLUGIN)
                     ${CMAKE_SOURCE_DIR}/sql
                     ${PCRE_INCLUDES}
                     ${SSL_INCLUDE_DIRS}
-                    ${ZLIB_INCLUDE_DIR})
+                    ${ZLIB_INCLUDE_DIR}
+                    ${CMAKE_SOURCE_DIR}/include/compression)
 
   LIST(GET ARG_UNPARSED_ARGUMENTS 0 plugin)
   SET(SOURCES ${ARG_UNPARSED_ARGUMENTS})
@@ -272,6 +273,12 @@ MACRO(MYSQL_ADD_PLUGIN)
   ENDIF()
 
   ENDIF(NOT WITHOUT_SERVER OR ARG_CLIENT)
+
+  # TODO: see if changing storage/innobase/lzo.cmake is better.
+  ADD_DEFINITIONS(-DHAVE_LZO=1)
+  GET_PROPERTY(LINK_LIBRARIES DIRECTORY PROPERTY LINK_LIBRARIES)
+  LIST(REMOVE_ITEM LINK_LIBRARIES lzo2 liblzo2.a)
+  SET_PROPERTY(DIRECTORY PROPERTY LINK_LIBRARIES "${LINK_LIBRARIES}")
 ENDMACRO()
 
 
