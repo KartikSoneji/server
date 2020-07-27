@@ -179,6 +179,7 @@ my @DEFAULT_SUITES= qw(
     csv-
     compat/oracle-
     compat/mssql-
+    compression_libs
     encryption-
     federated-
     funcs_1-

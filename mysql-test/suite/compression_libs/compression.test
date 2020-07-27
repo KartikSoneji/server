@@ -1,0 +1,6 @@
+--echo # Testing all compression libraries
+--echo
+--echo 
+
+--let $test_library = lzma
+--source test_library.inc

@@ -1,0 +1,26 @@
+# Testing all compression libraries
+
+
+#
+# Test --use-compression=lzma
+#
+# Start server with default options (lzma enabled)
+# restart: --use-compression=lzma
+SET GLOBAL innodb_compression_algorithm = lzma;
+DROP TABLE IF EXISTS innodb_compressed_lzma;
+CREATE TABLE innodb_compressed_lzma (a int, b char(20)) engine = innodb page_compressed = 1;
+INSERT INTO innodb_compressed_lzma (a, b) VALUES (0, "abc");
+INSERT INTO innodb_compressed_lzma (a, b) VALUES (1, "def");
+INSERT INTO innodb_compressed_lzma (a, b) VALUES (2, "ghi");
+SELECT * FROM innodb_compressed_lzma;
+a	b
+0	abc
+1	def
+2	ghi
+# Start server with no libraries
+# restart: --use_compression=
+# Table should not exist, as server does not know how to read compressed data
+SELECT * FROM innodb_compressed_lzma;
+ERROR 42S02: Table 'test.innodb_compressed_lzma' doesn't exist in engine
+DROP TABLE innodb_compressed_lzma;
+# restart
