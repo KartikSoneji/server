@@ -62,9 +62,7 @@ Updated 14/02/2015
 #ifdef HAVE_LZO
 #include "lzo/lzo1x.h"
 #endif
-#ifdef HAVE_LZMA
 #include "lzma.h"
-#endif
 #ifdef HAVE_BZIP2
 #include "bzlib.h"
 #endif
@@ -135,7 +133,7 @@ static ulint fil_page_compress_low(
 		break;
 	}
 #endif /* HAVE_LZO */
-#ifdef HAVE_LZMA
+
 	case PAGE_LZMA_ALGORITHM: {
 		size_t out_pos = 0;
 
@@ -148,7 +146,6 @@ static ulint fil_page_compress_low(
 		}
 		break;
 	}
-#endif /* HAVE_LZMA */
 
 #ifdef HAVE_BZIP2
 	case PAGE_BZIP2_ALGORITHM: {
@@ -480,7 +477,7 @@ static bool fil_page_decompress_low(
 				&& len_lzo == srv_page_size);
 		}
 #endif /* HAVE_LZO */
-#ifdef HAVE_LZMA
+
 	case PAGE_LZMA_ALGORITHM:
 		{
 			size_t		src_pos = 0;
@@ -493,7 +490,7 @@ static bool fil_page_decompress_low(
 				srv_page_size)
 				&& dst_pos == srv_page_size;
 		}
-#endif /* HAVE_LZMA */
+
 #ifdef HAVE_BZIP2
 	case PAGE_BZIP2_ALGORITHM:
 		{

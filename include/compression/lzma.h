@@ -11,6 +11,7 @@ extern "C" {
 #ifndef MYSQL_ABI_CHECK
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
 #endif
 
 typedef enum {
@@ -59,6 +60,8 @@ struct compression_service_lzma_st {
 };
 
 extern struct compression_service_lzma_st *compression_service_lzma;
+
+extern bool MARIADB_IS_LZMA_LOADED;
 
 #define lzma_stream_buffer_decode(...) compression_service_lzma->lzma_stream_buffer_decode_ptr(__VA_ARGS__)
 #define lzma_easy_buffer_encode(...) compression_service_lzma->lzma_easy_buffer_encode_ptr(__VA_ARGS__)

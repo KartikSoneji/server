@@ -497,6 +497,7 @@ struct compression_service_lzma_st {
   PTR_lzma_easy_buffer_encode lzma_easy_buffer_encode_ptr;
 };
 extern struct compression_service_lzma_st *compression_service_lzma;
+extern bool MARIADB_IS_LZMA_LOADED;
 }
 }
 struct st_mysql_xid {

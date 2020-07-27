@@ -358,9 +358,6 @@ static bool fil_comp_algo_validate(const fil_space_t* space)
 #ifdef HAVE_LZO
 	case PAGE_LZO_ALGORITHM:
 #endif /* HAVE_LZO */
-#ifdef HAVE_LZMA
-	case PAGE_LZMA_ALGORITHM:
-#endif /* HAVE_LZMA */
 #ifdef HAVE_BZIP2
 	case PAGE_BZIP2_ALGORITHM:
 #endif /* HAVE_BZIP2 */
@@ -368,6 +365,9 @@ static bool fil_comp_algo_validate(const fil_space_t* space)
 	case PAGE_SNAPPY_ALGORITHM:
 #endif /* HAVE_SNAPPY */
 		return true;
+	
+	case PAGE_LZMA_ALGORITHM:
+		return MARIADB_IS_LZMA_LOADED;
 	}
 
 	return false;

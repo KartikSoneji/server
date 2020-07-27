@@ -260,12 +260,6 @@ management to ensure correct alignment for doubles etc. */
 #define IF_LZ4(A,B) B
 #endif
 
-#ifdef HAVE_LZMA
-#define IF_LZMA(A,B) A
-#else
-#define IF_LZMA(A,B) B
-#endif
-
 #ifdef HAVE_BZIP2
 #define IF_BZIP2(A,B) A
 #else

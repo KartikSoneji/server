@@ -831,7 +831,6 @@ innodb_compression_algorithm_validate(
 
 static ibool innodb_have_lzo=IF_LZO(1, 0);
 static ibool innodb_have_lz4=IF_LZ4(1, 0);
-static ibool innodb_have_lzma=IF_LZMA(1, 0);
 static ibool innodb_have_bzip2=IF_BZIP2(1, 0);
 static ibool innodb_have_snappy=IF_SNAPPY(1, 0);
 static ibool innodb_have_punch_hole=IF_PUNCH_HOLE(1, 0);
@@ -1030,7 +1029,7 @@ static SHOW_VAR innodb_status_variables[]= {
    &export_vars.innodb_pages_decrypted, SHOW_LONGLONG},
   {"have_lz4", &innodb_have_lz4, SHOW_BOOL},
   {"have_lzo", &innodb_have_lzo, SHOW_BOOL},
-  {"have_lzma", &innodb_have_lzma, SHOW_BOOL},
+  {"have_lzma", &MARIADB_IS_LZMA_LOADED, SHOW_BOOL},
   {"have_bzip2", &innodb_have_bzip2, SHOW_BOOL},
   {"have_snappy", &innodb_have_snappy, SHOW_BOOL},
   {"have_punch_hole", &innodb_have_punch_hole, SHOW_BOOL},
@@ -3537,14 +3536,12 @@ static int innodb_init_params()
 	}
 #endif
 
-#ifndef HAVE_LZMA
-	if (innodb_compression_algorithm == PAGE_LZMA_ALGORITHM) {
+	if (!MARIADB_IS_LZMA_LOADED && innodb_compression_algorithm == PAGE_LZMA_ALGORITHM) {
 		sql_print_error("InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
 				"InnoDB: liblzma is not installed. \n",
 				innodb_compression_algorithm);
 		DBUG_RETURN(HA_ERR_INITIALIZATION);
 	}
-#endif
 
 #ifndef HAVE_BZIP2
 	if (innodb_compression_algorithm == PAGE_BZIP2_ALGORITHM) {
@@ -21546,8 +21543,7 @@ innodb_compression_algorithm_validate(
 	}
 #endif
 
-#ifndef HAVE_LZMA
-	if (compression_algorithm == PAGE_LZMA_ALGORITHM) {
+	if (!MARIADB_IS_LZMA_LOADED && compression_algorithm == PAGE_LZMA_ALGORITHM) {
 		push_warning_printf(thd, Sql_condition::WARN_LEVEL_WARN,
 				    HA_ERR_UNSUPPORTED,
 				    "InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
@@ -21555,7 +21551,6 @@ innodb_compression_algorithm_validate(
 				    compression_algorithm);
 		DBUG_RETURN(1);
 	}
-#endif
 
 #ifndef HAVE_BZIP2
 	if (compression_algorithm == PAGE_BZIP2_ALGORITHM) {
