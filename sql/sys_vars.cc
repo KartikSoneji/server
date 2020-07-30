@@ -4873,16 +4873,19 @@ Sys_proxy_protocol_networks(
 
 static const char *compression_libraries[] =
 {
-  "bzip2", "lz4", "lzma", "lzo", "snappy", "zlib", "zstd", "ALL", NULL
+  "bzip2", "lz4", "lzma", "lzo", "snappy", "zlib", "zstd", "auto", NULL
 };
 
 static Sys_var_set Sys_compression_libraries(
     "use_compression", "Makes these compression libraries available for use by "
     "storage engines. The syntax is a comma separated list of installed "
-    "libraries. \"\" represents no libraries and \"all\" represents all libraries. "
-    "Defaults to \"all\".",
+    "libraries. \"\" represents no libraries. \"auto\" will try to load all libraries "
+    "and will silently skip the ones that are not found. If a library is specified, "
+    "(eg --use-compression=lzma) then the server will not start unless it is loaded "
+    "successfully. \"auto\" can be combined with other options to autoload the remaining "
+	"libraries. Defaults to \"auto\"",
     READ_ONLY GLOBAL_VAR(enabled_compression_libraries), CMD_LINE(OPT_ARG),
-    compression_libraries, DEFAULT(COMPRESSION_ALL), NO_MUTEX_GUARD, NOT_IN_BINLOG,
+    compression_libraries, DEFAULT(COMPRESSION_AUTO), NO_MUTEX_GUARD, NOT_IN_BINLOG,
     ON_CHECK(NULL), ON_UPDATE(NULL));
 
 

@@ -7,10 +7,10 @@
 #define COMPRESSION_SNAPPY  1 << 4
 #define COMPRESSION_ZLIB    1 << 5
 #define COMPRESSION_ZSTD    1 << 6
-#define COMPRESSION_ALL     1 << 7
+#define COMPRESSION_AUTO    1 << 7
 
 
 void init_compression();
 void * safe_dlsym(void *, const char *);
 
-void init_lzo(); 
+int init_lzo(); 

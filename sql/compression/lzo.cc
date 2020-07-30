@@ -1,4 +1,7 @@
 #include "compression_libs.h"
+#include <mariadb.h>
+#include <mysqld.h>
+#include <log.h>
 #include <dlfcn.h>
 
 bool COMPRESSION_LOADED_LZO = false;
@@ -30,11 +33,14 @@ DEFINE_lzo1x_decompress_safe(lzo1x_decompress_safe){
 }
 
 
-void init_lzo(){
+int init_lzo(){
     //Load LZO library dynamically
     void *library_handle = dlopen("liblzo2.so", RTLD_LAZY | RTLD_GLOBAL);
-    if(!library_handle || dlerror())
-		return;
+    const char *error = dlerror();
+    if(!library_handle || error){
+        sql_print_warning("Failed to open library, error: %s", error);
+		return 1;
+    }
 
 	void *lzo1x_1_15_compress_ptr = safe_dlsym(library_handle, "lzo1x_1_15_compress");
 	void *lzo1x_decompress_safe_ptr = safe_dlsym(library_handle, "lzo1x_decompress_safe");
@@ -42,10 +48,13 @@ void init_lzo(){
 		!lzo1x_1_15_compress_ptr ||
 		!lzo1x_decompress_safe_ptr
 	)
-        return;
-    
+        return 1;
+
     lzo_handler.lzo1x_1_15_compress_ptr = (PTR_lzo1x_1_15_compress) lzo1x_1_15_compress_ptr;
     lzo_handler.lzo1x_decompress_safe_ptr = (PTR_lzo1x_decompress_safe) lzo1x_decompress_safe_ptr;
 
+    sql_print_information("Compression library LZO successfully loaded");
     COMPRESSION_LOADED_LZO = true;
+
+    return 0;
 }
