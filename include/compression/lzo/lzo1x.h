@@ -9,10 +9,13 @@ extern "C" {
 #endif
 
 #ifndef MYSQL_ABI_CHECK
+#include <stdbool.h>
 #endif
 
 #define LZO_E_OK                0
 #define LZO_E_INTERNAL_ERROR    (-99)
+extern bool COMPRESSION_LOADED_LZO;
+
 #define LZO1X_1_15_MEM_COMPRESS ((unsigned int) (32768L * ((unsigned) sizeof(unsigned char *))))
 
 typedef unsigned long lzo_uint;
