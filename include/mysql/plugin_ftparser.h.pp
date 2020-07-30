@@ -465,6 +465,7 @@ int json_unescape_json(const char *json_str, const char *json_end,
                        char *res, char *res_end);
 }
 extern "C" {
+extern bool COMPRESSION_LOADED_LZO;
 typedef unsigned long lzo_uint;
 typedef int (*PTR_lzo1x_1_15_compress)( const unsigned char *src, unsigned long src_len, unsigned char *dst, unsigned long *dst_len, void *wrkmem );
 typedef int (*PTR_lzo1x_decompress_safe)( const unsigned char *src, unsigned long src_len, unsigned char *dst, unsigned long *dst_len, void *wrkmem );

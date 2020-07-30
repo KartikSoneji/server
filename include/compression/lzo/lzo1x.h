@@ -9,7 +9,10 @@ extern "C" {
 #endif
 
 #ifndef MYSQL_ABI_CHECK
+#include <stdbool.h>
 #endif
+
+extern bool COMPRESSION_LOADED_LZO;
 
 #define LZO_E_OK 0
 #define LZO1X_1_15_MEM_COMPRESS ((unsigned int) (32768L * ((unsigned) sizeof(unsigned char *))))
