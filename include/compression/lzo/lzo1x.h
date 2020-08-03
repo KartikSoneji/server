@@ -39,8 +39,16 @@ typedef unsigned long lzo_uint;
 typedef DEFINE_lzo1x_1_15_compress((*PTR_lzo1x_1_15_compress));
 typedef DEFINE_lzo1x_decompress_safe((*PTR_lzo1x_decompress_safe));
 
-DEFINE_lzo1x_1_15_compress(lzo1x_1_15_compress);
-DEFINE_lzo1x_decompress_safe(lzo1x_decompress_safe);
+struct lzo_handler_st{
+    PTR_lzo1x_1_15_compress lzo1x_1_15_compress_ptr;
+    PTR_lzo1x_decompress_safe lzo1x_decompress_safe_ptr;
+};
+
+extern struct lzo_handler_st lzo_handler;
+extern struct lzo_handler_st *lzo_handler_ptr;
+
+#define lzo1x_1_15_compress(...) lzo_handler_ptr->lzo1x_1_15_compress_ptr(__VA_ARGS__)
+#define lzo1x_decompress_safe(...) lzo_handler_ptr->lzo1x_decompress_safe_ptr(__VA_ARGS__)
 
 #ifdef __cplusplus
 }
