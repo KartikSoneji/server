@@ -38,6 +38,7 @@ SET(MYSQLSERVICES_SOURCES
   thd_wait_service.c
   wsrep_service.c
   json_service.c
+  compression_service_zstd.c
   )
 
 ADD_CONVENIENCE_LIBRARY(mysqlservices ${MYSQLSERVICES_SOURCES})

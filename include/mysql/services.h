@@ -42,6 +42,9 @@ extern "C" {
 #include <mysql/service_json.h>
 /*#include <mysql/service_wsrep.h>*/
 
+//Dynamic Compression Libraries
+#include <compression/zstd.h>
+
 #ifdef __cplusplus
 }
 #endif

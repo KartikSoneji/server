@@ -228,9 +228,11 @@ ADD_LIBRARY(rocksdb_tools STATIC
    rocksdb/tools/ldb_tool.cc
    rocksdb/tools/ldb_cmd.cc
    rocksdb/tools/sst_dump_tool.cc
+   ../../sql/compression/zstd.cc
+   ../../include/compression/zstd.h
 )
 
-MYSQL_ADD_EXECUTABLE(sst_dump rocksdb/tools/sst_dump.cc COMPONENT rocksdb-engine)
+MYSQL_ADD_EXECUTABLE(sst_dump rocksdb/tools/sst_dump.cc ../../sql/compression/zstd.cc ../../include/compression/zstd.h COMPONENT rocksdb-engine)
 TARGET_LINK_LIBRARIES(sst_dump rocksdblib)
 
 MYSQL_ADD_EXECUTABLE(mariadb-ldb tools/mysql_ldb.cc COMPONENT rocksdb-engine)
