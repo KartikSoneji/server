@@ -162,7 +162,7 @@ SET (SQL_SOURCE
                
 	       compression/compression_libs.cc
 	       compression/lzo.cc
-	       ../libservices/compression_lzo_service.c
+	       ../libservices/compression_service_lzo.c
 	       
 	       ${CMAKE_CURRENT_BINARY_DIR}/lex_hash.h
                ${CMAKE_CURRENT_BINARY_DIR}/lex_token.h

@@ -10,7 +10,6 @@
 #define COMPRESSION_ALL     1 << 7
 
 
-void init_compression();
-void * safe_dlsym(void *, const char *);
+void init_compression(struct compression_service_lzo_st *);
 
-void init_lzo(); 
+void init_lzo(struct compression_service_lzo_st *, bool);

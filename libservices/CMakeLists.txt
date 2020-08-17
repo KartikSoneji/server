@@ -39,7 +39,7 @@ SET(MYSQLSERVICES_SOURCES
   wsrep_service.c
   json_service.c
 
-  compression_lzo_service.c
+  compression_service_lzo.c
   )
 
 ADD_CONVENIENCE_LIBRARY(mysqlservices ${MYSQLSERVICES_SOURCES})
