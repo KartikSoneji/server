@@ -11,4 +11,4 @@
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1335  USA */
 
 #include <service_versions.h>
-SERVICE_VERSION snappy_handler_ptr = (void*) VERSION_compression_snappy;
+SERVICE_VERSION compression_service_snappy = (void*) VERSION_compression_snappy;

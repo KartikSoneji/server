@@ -17,7 +17,6 @@ DEFINE_snappy_uncompressed_length(DUMMY_snappy_uncompressed_length){
     return SNAPPY_INVALID_INPUT;
 }
 
-
 DEFINE_snappy_uncompress(DUMMY_snappy_uncompress){
     return SNAPPY_INVALID_INPUT;
 }
@@ -45,16 +44,19 @@ namespace snappy{
     }
 }
 
-struct snappy_handler_st snappy_handler = {
-    DUMMY_snappy_max_compressed_length,
-    DUMMY_snappy_compress,
-    DUMMY_snappy_uncompressed_length,
-    DUMMY_snappy_uncompress
-};
 
-struct snappy_handler_st *snappy_handler_ptr = &snappy_handler;
+void init_snappy(struct compression_service_snappy_st *handler, bool load_library){
+    //point struct to right place for static plugins
+    compression_service_snappy = handler;
 
-void init_snappy(){
+    compression_service_snappy->snappy_max_compressed_length_ptr = DUMMY_snappy_max_compressed_length;
+    compression_service_snappy->snappy_compress_ptr              = DUMMY_snappy_compress;
+    compression_service_snappy->snappy_uncompressed_length_ptr   = DUMMY_snappy_uncompressed_length;
+    compression_service_snappy->snappy_uncompress_ptr            = DUMMY_snappy_uncompress;
+
+    if(!load_library)
+        return;
+
     //Load Snappy library dynamically
     void *library_handle = dlopen("libsnappy.so", RTLD_LAZY | RTLD_GLOBAL);
     if(!library_handle || dlerror())
@@ -73,10 +75,10 @@ void init_snappy(){
     )
         return;
     
-    snappy_handler.snappy_max_compressed_length_ptr = (PTR_snappy_max_compressed_length) snappy_max_compressed_length_ptr;
-    snappy_handler.snappy_compress_ptr              = (PTR_snappy_compress)              snappy_compress_ptr;
-    snappy_handler.snappy_uncompressed_length_ptr   = (PTR_snappy_uncompressed_length)   snappy_uncompressed_length_ptr;
-    snappy_handler.snappy_uncompress_ptr            = (PTR_snappy_uncompress)            snappy_uncompress_ptr;
+    compression_service_snappy->snappy_max_compressed_length_ptr = (PTR_snappy_max_compressed_length) snappy_max_compressed_length_ptr;
+    compression_service_snappy->snappy_compress_ptr              = (PTR_snappy_compress)              snappy_compress_ptr;
+    compression_service_snappy->snappy_uncompressed_length_ptr   = (PTR_snappy_uncompressed_length)   snappy_uncompressed_length_ptr;
+    compression_service_snappy->snappy_uncompress_ptr            = (PTR_snappy_uncompress)            snappy_uncompress_ptr;
 
     COMPRESSION_LOADED_SNAPPY = true;
 }

@@ -10,6 +10,6 @@
 #define COMPRESSION_ALL     1 << 7
 
 
-void init_compression();
+void init_compression(struct compression_service_snappy_st *);
 
-void init_snappy();
+void init_snappy(struct compression_service_snappy_st *, bool);
