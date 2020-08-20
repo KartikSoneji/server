@@ -159,6 +159,11 @@ SET (SQL_SOURCE
                opt_trace.cc
                table_cache.cc encryption.cc temporary_tables.cc
                proxy_protocol.cc backup.cc xa.cc
+
+               compression/compression_libs.cc
+               compression/bzip2.cc
+               ../libservices/compression_service_bzip2.c
+
                ${CMAKE_CURRENT_BINARY_DIR}/lex_hash.h
                ${CMAKE_CURRENT_BINARY_DIR}/lex_token.h
                ${GEN_SOURCES}
