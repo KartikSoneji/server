@@ -1,0 +1,9 @@
+# Testing all compression libraries
+
+
+#
+# Test --use-compression=bzip2 on storage engine "rocksdb"
+#
+# Start server with default options (bzip2 enabled)
+# restart: --use-compression=bzip2
+DROP TABLE IF EXISTS bzip2;

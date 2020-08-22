@@ -184,6 +184,7 @@ set(LIBS ${ROCKSDB_LIBS} ${THIRDPARTY_LIBS} ${SYSTEM_LIBS})
 #  - utilities/cassandra/test_utils.cc
 #
 set(ROCKSDB_SOURCES
+        ../../../sql/compression/bzip2.cc # Can be replaced with ${CMAKE_SOURCE_DIR}/sql/ once calls to check_lib are removed
         cache/clock_cache.cc
         cache/lru_cache.cc
         cache/sharded_cache.cc

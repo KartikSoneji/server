@@ -1,0 +1,38 @@
+--echo # Testing all compression libraries
+--echo
+--echo
+
+# \       |BZip2|LZ4|LZ4HC|LZMA|LZO|Snappy|ZStandard
+# --------|-----|---|-----|----|---|------|---------
+# Connect |*    |   |     |    |   |      |         
+# InnoDB  |*    |*  |     |*   |*  |*     |         
+# Mroonga |     |*  |     |    |   |      |*        
+# RocksDB |*    |*  |*    |    |   |*     |*        
+
+let %TEST_MATRIX = {
+    "connect" => ("bzip2",                                                ),
+    "innodb"  => ("bzip2", "lz4",          "lzma", "lzo", "snappy"        ),
+    "mroonga" => (         "lz4",                                   "zstd"),
+    "rocksdb" => ("bzip2", "lz4", "lz4hc",                "snappy", "zstd")
+};
+
+# Look up how to use BZip2 with Connect
+# --let $test_engine  = connect
+# --let $test_library = bzip2
+# --source test_library.inc
+
+--let $test_engine  = innodb
+--let $test_library = bzip2
+--source test_library.inc
+
+--let $test_engine  = rocksdb
+--let $test_library = bzip2
+--source test_library.inc
+
+# while(($engine, $libraries) = each(%TEST_MATRIX)){
+#     foreach my $library (@libraries){
+#         let $test_engine  = $engine
+#         let $test_library = $library
+#         source test_library.inc
+#     }
+# }
