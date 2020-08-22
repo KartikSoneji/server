@@ -71,7 +71,7 @@ macro(check_lib package var)
   endif()
 endmacro()
 
-check_lib(LZ4    LZ4)
+#check_lib(LZ4    LZ4)
 check_lib(BZip2  BZIP2)
 check_lib(snappy snappy) # rocksdb/cmake/modules/Findsnappy.cmake violates the convention
 check_lib(ZSTD   ZSTD ZDICT_trainFromBuffer)
@@ -184,6 +184,7 @@ set(LIBS ${ROCKSDB_LIBS} ${THIRDPARTY_LIBS} ${SYSTEM_LIBS})
 #  - utilities/cassandra/test_utils.cc
 #
 set(ROCKSDB_SOURCES
+        #../../../sql/compression/lz4.cc
         cache/clock_cache.cc
         cache/lru_cache.cc
         cache/sharded_cache.cc

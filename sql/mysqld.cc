@@ -52,6 +52,8 @@
 #include "sql_expression_cache.h" // subquery_cache_miss, subquery_cache_hit
 #include "sys_vars_shared.h"
 
+#include "compression/compression_libs.h"
+
 #include <m_ctype.h>
 #include <my_dir.h>
 #include <my_bit.h>
@@ -7316,6 +7318,7 @@ SHOW_VAR status_vars[]= {
   {"Column_decompressions",    (char*) offsetof(STATUS_VAR, column_decompressions), SHOW_LONG_STATUS},
   {"Com",                      (char*) com_status_vars, SHOW_ARRAY},
   {"Compression",              (char*) &show_net_compression, SHOW_SIMPLE_FUNC},
+  {"Compression_loaded_lz4",   (char*) &COMPRESSION_LOADED_LZ4, SHOW_BOOL},
   {"Connections",              (char*) &global_thread_id,         SHOW_LONG_NOFLUSH},
   {"Connection_errors_accept", (char*) &connection_errors_accept, SHOW_LONG},
   {"Connection_errors_internal", (char*) &connection_errors_internal, SHOW_LONG},

@@ -1,0 +1,20 @@
+--echo # Testing all compression libraries
+
+# \       |BZip2|LZ4|LZ4HC|LZMA|LZO|Snappy|ZStandard
+# --------|-----|---|-----|----|---|------|---------
+# Connect |*    |   |     |    |   |      |         
+# InnoDB  |*    |*  |     |*   |*  |*     |         
+# Mroonga |     |*  |     |    |   |      |*        
+# RocksDB |*    |*  |*    |    |   |*     |*        
+
+let $test_engine  = innodb;
+let $test_library = lz4;
+source test_library.inc;
+
+let $test_engine  = mroonga;
+let $test_library = lz4;
+source test_library.inc;
+
+# let $test_engine  = rocksdb;
+# let $test_library = lz4;
+# source test_library.inc;
