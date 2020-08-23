@@ -68,6 +68,7 @@ DEFINE_LZ4_resetStreamHC(DUMMY_LZ4_resetStreamHC){
     //void function
 }
 
+struct compression_service_lz4_st compression_lz4_handler = {};
 
 void init_lz4(struct compression_service_lz4_st *handler, bool load_library){
     //point struct to right place for static plugins

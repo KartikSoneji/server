@@ -18,6 +18,7 @@
 #include <service_versions.h>
 #include <mysql/service_wsrep.h>
 #include <mysql/service_thd_mdl.h>
+#include "compression/compression_libs.h"
 
 struct st_service_ref {
   const char *name;
@@ -227,8 +228,6 @@ static struct thd_mdl_service_st thd_mdl_handler=
 {
   thd_mdl_context
 };
-
-static struct compression_service_lz4_st compression_lz4_handler = {}; // updated in init_compression()
 
 static struct st_service_ref list_of_services[]=
 {

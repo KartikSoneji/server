@@ -546,6 +546,7 @@ struct compression_service_lz4_st{
     PTR_LZ4_loadDictHC LZ4_loadDictHC_ptr;
     PTR_LZ4_resetStreamHC LZ4_resetStreamHC_ptr;
 };
+extern struct compression_service_lz4_st compression_lz4_handler;
 extern struct compression_service_lz4_st *compression_service_lz4;
 }
 extern "C" {
