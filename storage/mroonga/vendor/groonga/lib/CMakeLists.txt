@@ -15,6 +15,7 @@
 
 add_definitions(
   -DGRN_DAT_EXPORT
+  -DGRN_WITH_ZSTD
   )
 
 include_directories(
