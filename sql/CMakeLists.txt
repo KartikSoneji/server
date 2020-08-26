@@ -129,11 +129,6 @@ SET (SQL_SOURCE
                sql_signal.cc mdl.cc sql_admin.cc
                transaction.cc sys_vars.cc sql_truncate.cc datadict.cc
                sql_reload.cc
-               
-               compression/compression_libs.cc
-               compression/lzma.cc
-               ../libservices/compression_lzma_service.c
-
                # added in MariaDB:
                grant.cc
                sql_explain.cc
@@ -167,6 +162,10 @@ SET (SQL_SOURCE
                ${CMAKE_CURRENT_BINARY_DIR}/lex_token.h
                ${GEN_SOURCES}
                ${MYSYS_LIBWRAP_SOURCE}
+
+               # Dynamic compression
+               compression/compression_libs.cc
+               compression/lzma.cc ../libservices/compression_service_lzma.c
 )
   
 IF ((CMAKE_SYSTEM_NAME MATCHES "Linux" OR

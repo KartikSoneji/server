@@ -17,7 +17,7 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
 
 SET(MYSQLSERVICES_SOURCES
   base64_service.c
-  compression_lzma_service.c
+  compression_service_lzma.c
   debug_sync_service.c
   encryption_scheme_service.c
   encryption_service.c
