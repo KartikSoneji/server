@@ -639,6 +639,8 @@ public:
   hash_table_t prdt_hash;
   /** page locks for SPATIAL INDEX */
   hash_table_t prdt_page_hash;
+  /** number of deadlocks detected; protected by latch */
+  ulint deadlocks;
 
   /** mutex covering lock waits; @see trx_lock_t::wait_lock */
   MY_ALIGNED(CACHE_LINE_SIZE) mysql_mutex_t wait_mutex;
@@ -908,9 +910,7 @@ Check for deadlocks.
 @param[in,out]	thr		query thread
 @param[in]	prdt		minimum bounding box (spatial index)
 @retval	DB_LOCK_WAIT		if the waiting lock was enqueued
-@retval	DB_DEADLOCK		if this transaction was chosen as the victim
-@retval	DB_SUCCESS_LOCKED_REC	if the other transaction was chosen as a victim
-				(or it happened to commit) */
+@retval	DB_DEADLOCK		if this transaction was chosen as the victim */
 dberr_t
 lock_rec_enqueue_waiting(
 #ifdef WITH_WSREP

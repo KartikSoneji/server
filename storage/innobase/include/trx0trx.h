@@ -432,13 +432,11 @@ struct trx_lock_t {
 	ib_uint64_t	deadlock_mark;	/*!< A mark field that is initialized
 					to and checked against lock_mark_counter
 					by lock_deadlock_recursive(). */
-	bool		was_chosen_as_deadlock_victim;
-					/*!< when the transaction decides to
-					wait for a lock, it sets this to false;
-					if another transaction chooses this
-					transaction as a victim in deadlock
-					resolution, it sets this to true.
-					Protected by trx->mutex. */
+  /** When the transaction decides to wait for a lock, it clears this;
+  set if another transaction chooses this transaction as a victim in deadlock
+  resolution. Protected by lock_sys.assert_locked(wait_lock)
+  and lock_sys.wait_mutex. */
+  bool was_chosen_as_deadlock_victim;
 	que_thr_t*	wait_thr;	/*!< query thread belonging to this
 					trx that is in waiting
 					state. For threads suspended in a
