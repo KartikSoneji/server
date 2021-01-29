@@ -3373,7 +3373,6 @@ lock_table_enqueue_waiting(
 )
 {
 	trx_t*		trx;
-	lock_t*		lock;
 
 	lock_sys.mutex_assert_locked();
 	ut_ad(!srv_read_only_mode);
@@ -3398,11 +3397,11 @@ lock_table_enqueue_waiting(
 #endif /* WITH_WSREP */
 
 	/* Enqueue the lock request that will wait to be granted */
-	lock = lock_table_create(table, mode | LOCK_WAIT, trx
+	lock_table_create(table, mode | LOCK_WAIT, trx
 #ifdef WITH_WSREP
-				 , c_lock
+			  , c_lock
 #endif
-				 );
+			  );
 
 	trx->lock.wait_thr = thr;
 	trx->lock.was_chosen_as_deadlock_victim = false;
