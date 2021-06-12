@@ -4912,7 +4912,7 @@ Sys_proxy_protocol_networks(
 
 static const char *compression_libraries[] =
 {
-  "lzma", NULL
+  "lzma", "lzo", NULL
 };
 
 static Sys_var_set Sys_compression_libraries(
