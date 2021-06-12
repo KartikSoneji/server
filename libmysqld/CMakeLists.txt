@@ -139,6 +139,8 @@ SET(SQL_EMBEDDED_SOURCES emb_qcache.cc libmysqld.c lib_sql.cc
            ../sql/json_table.cc
            ${GEN_SOURCES}
            ${MYSYS_LIBWRAP_SOURCE}
+
+           ../sql/compression/lzma.cc
 )
 
 
