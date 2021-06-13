@@ -53,8 +53,6 @@
 #include "sys_vars_shared.h"
 #include "ddl_log.h"
 
-#include "compression/compression_libs.h"
-
 #include <m_ctype.h>
 #include <my_dir.h>
 #include <my_bit.h>
@@ -357,7 +355,6 @@ my_bool debug_assert_on_not_freed_memory= 0;
 my_bool disable_log_notes, opt_support_flashback= 0;
 static my_bool opt_abort;
 ulonglong log_output_options;
-ulonglong enabled_compression_libraries;
 my_bool opt_userstat_running;
 bool opt_error_log= IF_WIN(1,0);
 bool opt_disable_networking=0, opt_skip_show_db=0;
