@@ -45,5 +45,5 @@
 #define VERSION_json                    0x0100
 #define VERSION_thd_mdl                 0x0100
 
-#define VERSION_compression_lzma        0x0100
-#define VERSION_compression_lzo         0x0100
+#define VERSION_wrapper_lzma            0x0100
+#define VERSION_wrapper_lzo             0x0100
