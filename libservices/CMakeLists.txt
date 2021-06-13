@@ -39,6 +39,7 @@ SET(MYSQLSERVICES_SOURCES
   wsrep_service.c
   json_service.c
   wrapper_service_bzip2.c
+  wrapper_service_lz4.c
   wrapper_service_lzma.c
   wrapper_service_lzo.c
   wrapper_service_snappy.c
