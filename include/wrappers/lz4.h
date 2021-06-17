@@ -45,6 +45,8 @@ struct wrapper_service_lz4_st
   int DEFINE_LZ4_compressBound((*LZ4_compressBound_ptr));
   int DEFINE_LZ4_compress_default((*LZ4_compress_default_ptr));
   int DEFINE_LZ4_decompress_safe((*LZ4_decompress_safe_ptr));
+
+  bool is_loaded;
 };
 
 extern struct wrapper_service_lz4_st *wrapper_service_lz4;

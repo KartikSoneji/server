@@ -13,6 +13,7 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1335  USA */
 
+#include <stdbool.h>
 #include <mysql_version.h>
 #include <mysql/plugin.h>
 #include <bzlib.h>
@@ -28,6 +29,9 @@ static int init(void* h)
   wrapper_service_bzip2->BZ2_bzDecompress_ptr= BZ2_bzDecompress;
   wrapper_service_bzip2->BZ2_bzDecompressEnd_ptr= BZ2_bzDecompressEnd;
   wrapper_service_bzip2->BZ2_bzDecompressInit_ptr= BZ2_bzDecompressInit;
+
+  wrapper_service_bzip2->is_loaded = true;
+
   return 0;
 }
 

@@ -108,6 +108,8 @@ struct wrapper_service_bzip2_st{
   int DEFINE_BZ2_bzDecompress((*BZ2_bzDecompress_ptr));
   int DEFINE_BZ2_bzDecompressEnd((*BZ2_bzDecompressEnd_ptr));
   int DEFINE_BZ2_bzDecompressInit((*BZ2_bzDecompressInit_ptr));
+
+  bool is_loaded;
 };
 
 extern struct wrapper_service_bzip2_st *wrapper_service_bzip2;

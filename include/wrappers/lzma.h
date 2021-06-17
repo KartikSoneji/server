@@ -77,9 +77,12 @@ struct wrapper_service_lzma_st
 {
   lzma_ret DEFINE_lzma_stream_buffer_decode((*lzma_stream_buffer_decode_ptr));
   lzma_ret DEFINE_lzma_easy_buffer_encode((*lzma_easy_buffer_encode_ptr));
+
+  bool is_loaded;
 };
 
 extern struct wrapper_service_lzma_st *wrapper_service_lzma;
+
 
 #ifdef __cplusplus
 }

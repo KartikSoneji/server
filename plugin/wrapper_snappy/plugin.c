@@ -13,6 +13,7 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1335  USA */
 
+#include <stdbool.h>
 #include <mysql_version.h>
 #include <mysql/plugin.h>
 #include <snappy-c.h>
@@ -25,6 +26,9 @@ static int init(void* h)
   wrapper_service_snappy->snappy_compress_ptr= snappy_compress;
   wrapper_service_snappy->snappy_uncompressed_length_ptr= snappy_uncompressed_length;
   wrapper_service_snappy->snappy_uncompress_ptr= snappy_uncompress;
+
+  wrapper_service_snappy->is_loaded = true;
+
   return 0;
 }
 

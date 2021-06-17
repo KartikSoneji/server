@@ -57,6 +57,8 @@ struct wrapper_service_snappy_st
   snappy_status DEFINE_snappy_compress((*snappy_compress_ptr));
   snappy_status DEFINE_snappy_uncompressed_length((*snappy_uncompressed_length_ptr));
   snappy_status DEFINE_snappy_uncompress((*snappy_uncompress_ptr));
+
+  bool is_loaded;
 };
 
 extern struct wrapper_service_snappy_st *wrapper_service_snappy;

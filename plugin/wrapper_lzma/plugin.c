@@ -13,6 +13,7 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1335  USA */
 
+#include <stdbool.h>
 #include <mysql_version.h>
 #include <mysql/plugin.h>
 #include <lzma.h>
@@ -22,6 +23,9 @@ static int init(void* h)
 {
   wrapper_service_lzma->lzma_stream_buffer_decode_ptr= lzma_stream_buffer_decode;
   wrapper_service_lzma->lzma_easy_buffer_encode_ptr= lzma_easy_buffer_encode;
+
+  wrapper_service_lzma->is_loaded = true;
+
   return 0;
 }
 

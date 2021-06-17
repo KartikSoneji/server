@@ -44,6 +44,8 @@ struct wrapper_service_lzo_st
 {
   int DEFINE_lzo1x_1_15_compress((*lzo1x_1_15_compress_ptr));
   int DEFINE_lzo1x_decompress_safe((*lzo1x_decompress_safe_ptr));
+
+  bool is_loaded;
 };
 
 extern struct wrapper_service_lzo_st *wrapper_service_lzo;

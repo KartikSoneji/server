@@ -13,6 +13,7 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1335  USA */
 
+#include <stdbool.h>
 #include <mysql_version.h>
 #include <mysql/plugin.h>
 #include <lz4.h>
@@ -23,6 +24,9 @@ static int init(void* h)
   wrapper_service_lz4->LZ4_compressBound_ptr= LZ4_compressBound;
   wrapper_service_lz4->LZ4_compress_default_ptr= LZ4_compress_default;
   wrapper_service_lz4->LZ4_decompress_safe_ptr= LZ4_decompress_safe;
+
+  wrapper_service_lz4->is_loaded = true;
+
   return 0;
 }
 

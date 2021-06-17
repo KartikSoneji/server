@@ -13,6 +13,7 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1335  USA */
 
+#include <stdbool.h>
 #include <mysql_version.h>
 #include <mysql/plugin.h>
 #include <lzo/lzo1x.h>
@@ -22,6 +23,9 @@ static int init(void* h)
 {
   wrapper_service_lzo->lzo1x_1_15_compress_ptr= lzo1x_1_15_compress;
   wrapper_service_lzo->lzo1x_decompress_safe_ptr= lzo1x_decompress_safe;
+
+  wrapper_service_lzo->is_loaded = true;
+
   return 0;
 }
 
