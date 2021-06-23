@@ -19358,7 +19358,7 @@ static MYSQL_SYSVAR_BOOL(force_primary_key,
   "Do not allow creating a table without primary key (off by default)",
   NULL, NULL, FALSE);
 
-static const char *page_compression_algorithms[]= { "none", "zlib", "lz4", "lzo", "lzma", "bzip2", "snappy", 0 };
+const char *page_compression_algorithms[]= { "none", "zlib", "lz4", "lzo", "lzma", "bzip2", "snappy", 0 };
 static TYPELIB page_compression_algorithms_typelib=
 {
   array_elements(page_compression_algorithms) - 1, 0,
