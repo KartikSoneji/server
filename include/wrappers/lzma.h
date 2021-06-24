@@ -53,7 +53,7 @@ typedef enum
 #define DEFINE_lzma_stream_buffer_decode(NAME) NAME( \
     uint64_t *memlimit,                              \
     uint32_t flags,                                  \
-    const lzma_allocator *allocator,                 \
+    lzma_allocator *allocator,                       \
     const uint8_t *in,                               \
     size_t *in_pos,                                  \
     size_t in_size,                                  \
@@ -65,7 +65,7 @@ typedef enum
 #define DEFINE_lzma_easy_buffer_encode(NAME) NAME(   \
     uint32_t preset,                                 \
     lzma_check check,                                \
-    const lzma_allocator *allocator,                 \
+    lzma_allocator *allocator,                       \
     const uint8_t *in,                               \
     size_t in_size,                                  \
     uint8_t *out,                                    \
