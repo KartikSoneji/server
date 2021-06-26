@@ -236,7 +236,7 @@ static struct wrapper_service_lzma_st wrapper_handler_lzma=
   DEFINE_lzma_stream_buffer_decode([]) { return LZMA_PROG_ERROR; },
   DEFINE_lzma_easy_buffer_encode([]) { return LZMA_PROG_ERROR; },
 
-  .is_loaded = false
+  false // .is_loaded
 };
 struct wrapper_service_lzma_st *wrapper_service_lzma= &wrapper_handler_lzma;
 
@@ -246,7 +246,7 @@ static struct wrapper_service_lzo_st wrapper_handler_lzo=
   DEFINE_lzo1x_1_15_compress([]) { return LZO_E_INTERNAL_ERROR; },
   DEFINE_lzo1x_decompress_safe([]) { return LZO_E_INTERNAL_ERROR; },
 
-  .is_loaded = false
+  false // .is_loaded
 };
 struct wrapper_service_lzo_st *wrapper_service_lzo= &wrapper_handler_lzo;
 
@@ -262,7 +262,7 @@ static struct wrapper_service_bzip2_st wrapper_handler_bzip2=
   DEFINE_BZ2_bzDecompressEnd([]) { return -1; },
   DEFINE_BZ2_bzDecompressInit([]) { return -1; },
 
-  .is_loaded = false
+  false // .is_loaded
 };
 struct wrapper_service_bzip2_st *wrapper_service_bzip2= &wrapper_handler_bzip2;
 
@@ -274,7 +274,7 @@ static struct wrapper_service_snappy_st wrapper_handler_snappy=
   DEFINE_snappy_uncompressed_length([]) { return SNAPPY_INVALID_INPUT; },
   DEFINE_snappy_uncompress([]) { return SNAPPY_INVALID_INPUT; },
 
-  .is_loaded = false
+  false // .is_loaded
 };
 struct wrapper_service_snappy_st *wrapper_service_snappy= &wrapper_handler_snappy;
 
@@ -285,7 +285,7 @@ static struct wrapper_service_lz4_st wrapper_handler_lz4=
   DEFINE_LZ4_compress_default([]) { return 0; },
   DEFINE_LZ4_decompress_safe([]) { return -1; },
 
-  .is_loaded = false
+  false // .is_loaded
 };
 struct wrapper_service_lz4_st *wrapper_service_lz4= &wrapper_handler_lz4;
 
