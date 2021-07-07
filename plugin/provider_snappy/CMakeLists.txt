@@ -6,6 +6,6 @@ IF (HAVE_SNAPPY_H AND HAVE_SNAPPY_UNCOMPRESS)
   LIST(REMOVE_ITEM dirs ${CMAKE_SOURCE_DIR}/include/wrappers)
   SET_PROPERTY(DIRECTORY PROPERTY INCLUDE_DIRECTORIES "${dirs}")
 
-  MYSQL_ADD_PLUGIN(snappy_plugin plugin.c MODULE_OUTPUT_NAME snappy
-    COMPONENT snappy LINK_LIBRARIES snappy CONFIG snappy.cnf)
+  MYSQL_ADD_PLUGIN(provider_snappy plugin.c MODULE_OUTPUT_NAME provider_snappy
+    COMPONENT provider_snappy LINK_LIBRARIES snappy CONFIG provider_snappy.cnf)
 ENDIF()
