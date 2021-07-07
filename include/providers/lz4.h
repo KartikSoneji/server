@@ -17,9 +17,9 @@ extern "C" {
 #ifndef LZ4_VERSION_NUMBER
 #define LZ4_MAX_INPUT_SIZE 0x7E000000
 
-#define LZ4_compressBound(...)    wrapper_service_lz4->LZ4_compressBound_ptr       (__VA_ARGS__)
-#define LZ4_compress_default(...) wrapper_service_lz4->LZ4_compress_default_ptr       (__VA_ARGS__)
-#define LZ4_decompress_safe(...)  wrapper_service_lz4->LZ4_decompress_safe_ptr        (__VA_ARGS__)
+#define LZ4_compressBound(...)    provider_service_lz4->LZ4_compressBound_ptr       (__VA_ARGS__)
+#define LZ4_compress_default(...) provider_service_lz4->LZ4_compress_default_ptr       (__VA_ARGS__)
+#define LZ4_decompress_safe(...)  provider_service_lz4->LZ4_decompress_safe_ptr        (__VA_ARGS__)
 #endif
 
 #define DEFINE_LZ4_compressBound(NAME) NAME(    \
@@ -40,7 +40,7 @@ extern "C" {
     int dstCapacity                             \
 )
 
-struct wrapper_service_lz4_st
+struct provider_service_lz4_st
 {
   int DEFINE_LZ4_compressBound((*LZ4_compressBound_ptr));
   int DEFINE_LZ4_compress_default((*LZ4_compress_default_ptr));
@@ -49,7 +49,7 @@ struct wrapper_service_lz4_st
   bool is_loaded;
 };
 
-extern struct wrapper_service_lz4_st *wrapper_service_lz4;
+extern struct provider_service_lz4_st *provider_service_lz4;
 
 #ifdef __cplusplus
 }

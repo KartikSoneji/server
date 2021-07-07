@@ -14,4 +14,4 @@
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1335  USA */
 
 #include <service_versions.h>
-SERVICE_VERSION wrapper_service_lzma = (void*) VERSION_wrapper_lzma;
+SERVICE_VERSION provider_service_snappy= (void*) VERSION_provider_snappy;

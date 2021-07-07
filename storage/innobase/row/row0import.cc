@@ -3410,9 +3410,9 @@ fil_iterate(
 	ulint			n_bytes = iter.n_io_buffers * size;
 
 	const ulint buf_size = srv_page_size +
-		(wrapper_service_lzo->is_loaded)?
+		(provider_service_lzo->is_loaded)?
 			LZO1X_1_15_MEM_COMPRESS
-			:(wrapper_service_snappy->is_loaded)?
+			:(provider_service_snappy->is_loaded)?
 				snappy_max_compressed_length(srv_page_size)
 				:0
 	;

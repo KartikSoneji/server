@@ -17,14 +17,14 @@
 #include <mysql_version.h>
 #include <mysql/plugin.h>
 #include <lzo/lzo1x.h>
-#include <wrappers/lzo/lzo1x.h>
+#include <providers/lzo/lzo1x.h>
 
 static int init(void* h)
 {
-  wrapper_service_lzo->lzo1x_1_15_compress_ptr= lzo1x_1_15_compress;
-  wrapper_service_lzo->lzo1x_decompress_safe_ptr= lzo1x_decompress_safe;
+  provider_service_lzo->lzo1x_1_15_compress_ptr= lzo1x_1_15_compress;
+  provider_service_lzo->lzo1x_decompress_safe_ptr= lzo1x_decompress_safe;
 
-  wrapper_service_lzo->is_loaded = true;
+  provider_service_lzo->is_loaded = true;
 
   return 0;
 }
@@ -35,7 +35,7 @@ maria_declare_plugin(lzo)
 {
   MYSQL_DAEMON_PLUGIN,
   &info,
-  "lzo",
+  "provider_lzo",
   "Sergei Golubchik",
   "LZO compression service",
   PLUGIN_LICENSE_GPL,

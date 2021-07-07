@@ -17,15 +17,15 @@
 #include <mysql_version.h>
 #include <mysql/plugin.h>
 #include <lz4.h>
-#include <wrappers/lz4.h>
+#include <providers/lz4.h>
 
 static int init(void* h)
 {
-  wrapper_service_lz4->LZ4_compressBound_ptr= LZ4_compressBound;
-  wrapper_service_lz4->LZ4_compress_default_ptr= LZ4_compress_default;
-  wrapper_service_lz4->LZ4_decompress_safe_ptr= LZ4_decompress_safe;
+  provider_service_lz4->LZ4_compressBound_ptr= LZ4_compressBound;
+  provider_service_lz4->LZ4_compress_default_ptr= LZ4_compress_default;
+  provider_service_lz4->LZ4_decompress_safe_ptr= LZ4_decompress_safe;
 
-  wrapper_service_lz4->is_loaded = true;
+  provider_service_lz4->is_loaded = true;
 
   return 0;
 }
@@ -36,7 +36,7 @@ maria_declare_plugin(lz4)
 {
   MYSQL_DAEMON_PLUGIN,
   &info,
-  "lz4",
+  "provider_lz4",
   "Sergei Golubchik",
   "LZ4 compression service",
   PLUGIN_LICENSE_GPL,

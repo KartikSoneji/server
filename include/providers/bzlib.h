@@ -40,14 +40,14 @@ typedef struct
   void *opaque;
 } bz_stream;
 
-#define BZ2_bzBuffToBuffCompress(...)   wrapper_service_bzip2->BZ2_bzBuffToBuffCompress_ptr   (__VA_ARGS__)
-#define BZ2_bzBuffToBuffDecompress(...) wrapper_service_bzip2->BZ2_bzBuffToBuffDecompress_ptr (__VA_ARGS__)
-#define BZ2_bzCompress(...)             wrapper_service_bzip2->BZ2_bzCompress_ptr             (__VA_ARGS__)
-#define BZ2_bzCompressEnd(...)          wrapper_service_bzip2->BZ2_bzCompressEnd_ptr          (__VA_ARGS__)
-#define BZ2_bzCompressInit(...)         wrapper_service_bzip2->BZ2_bzCompressInit_ptr         (__VA_ARGS__)
-#define BZ2_bzDecompress(...)           wrapper_service_bzip2->BZ2_bzDecompress_ptr           (__VA_ARGS__)
-#define BZ2_bzDecompressEnd(...)        wrapper_service_bzip2->BZ2_bzDecompressEnd_ptr        (__VA_ARGS__)
-#define BZ2_bzDecompressInit(...)       wrapper_service_bzip2->BZ2_bzDecompressInit_ptr       (__VA_ARGS__)
+#define BZ2_bzBuffToBuffCompress(...)   provider_service_bzip2->BZ2_bzBuffToBuffCompress_ptr   (__VA_ARGS__)
+#define BZ2_bzBuffToBuffDecompress(...) provider_service_bzip2->BZ2_bzBuffToBuffDecompress_ptr (__VA_ARGS__)
+#define BZ2_bzCompress(...)             provider_service_bzip2->BZ2_bzCompress_ptr             (__VA_ARGS__)
+#define BZ2_bzCompressEnd(...)          provider_service_bzip2->BZ2_bzCompressEnd_ptr          (__VA_ARGS__)
+#define BZ2_bzCompressInit(...)         provider_service_bzip2->BZ2_bzCompressInit_ptr         (__VA_ARGS__)
+#define BZ2_bzDecompress(...)           provider_service_bzip2->BZ2_bzDecompress_ptr           (__VA_ARGS__)
+#define BZ2_bzDecompressEnd(...)        provider_service_bzip2->BZ2_bzDecompressEnd_ptr        (__VA_ARGS__)
+#define BZ2_bzDecompressInit(...)       provider_service_bzip2->BZ2_bzDecompressInit_ptr       (__VA_ARGS__)
 #endif
 
 #define DEFINE_BZ2_bzBuffToBuffCompress(NAME) NAME( \
@@ -99,7 +99,7 @@ typedef struct
     int small                                   \
 )
 
-struct wrapper_service_bzip2_st{
+struct provider_service_bzip2_st{
   int DEFINE_BZ2_bzBuffToBuffCompress((*BZ2_bzBuffToBuffCompress_ptr));
   int DEFINE_BZ2_bzBuffToBuffDecompress((*BZ2_bzBuffToBuffDecompress_ptr));
   int DEFINE_BZ2_bzCompress((*BZ2_bzCompress_ptr));
@@ -112,7 +112,7 @@ struct wrapper_service_bzip2_st{
   bool is_loaded;
 };
 
-extern struct wrapper_service_bzip2_st *wrapper_service_bzip2;
+extern struct provider_service_bzip2_st *provider_service_bzip2;
 
 #ifdef __cplusplus
 }

@@ -275,19 +275,19 @@ static bool fil_comp_algo_validate(const fil_space_t* space)
 		return true;
 
 	case PAGE_LZ4_ALGORITHM:
-		return wrapper_service_lz4->is_loaded;
+		return provider_service_lz4->is_loaded;
 
 	case PAGE_LZO_ALGORITHM:
-		return wrapper_service_lzo->is_loaded;
+		return provider_service_lzo->is_loaded;
 
 	case PAGE_LZMA_ALGORITHM:
-		return wrapper_service_lzma->is_loaded;
+		return provider_service_lzma->is_loaded;
 
 	case PAGE_BZIP2_ALGORITHM:
-		return wrapper_service_bzip2->is_loaded;
+		return provider_service_bzip2->is_loaded;
 
 	case PAGE_SNAPPY_ALGORITHM:
-		return wrapper_service_snappy->is_loaded;
+		return provider_service_snappy->is_loaded;
 	}
 
 	return false;

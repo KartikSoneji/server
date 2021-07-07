@@ -230,28 +230,28 @@ static struct thd_mdl_service_st thd_mdl_handler=
   thd_mdl_context
 };
 
-#include <wrappers/lzma.h>
-static struct wrapper_service_lzma_st wrapper_handler_lzma=
+#include <providers/lzma.h>
+static struct provider_service_lzma_st provider_handler_lzma=
 {
   DEFINE_lzma_stream_buffer_decode([]) { return LZMA_PROG_ERROR; },
   DEFINE_lzma_easy_buffer_encode([]) { return LZMA_PROG_ERROR; },
 
   false // .is_loaded
 };
-struct wrapper_service_lzma_st *wrapper_service_lzma= &wrapper_handler_lzma;
+struct provider_service_lzma_st *provider_service_lzma= &provider_handler_lzma;
 
-#include <wrappers/lzo/lzo1x.h>
-static struct wrapper_service_lzo_st wrapper_handler_lzo=
+#include <providers/lzo/lzo1x.h>
+static struct provider_service_lzo_st provider_handler_lzo=
 {
   DEFINE_lzo1x_1_15_compress([]) { return LZO_E_INTERNAL_ERROR; },
   DEFINE_lzo1x_decompress_safe([]) { return LZO_E_INTERNAL_ERROR; },
 
   false // .is_loaded
 };
-struct wrapper_service_lzo_st *wrapper_service_lzo= &wrapper_handler_lzo;
+struct provider_service_lzo_st *provider_service_lzo= &provider_handler_lzo;
 
-#include <wrappers/bzlib.h>
-static struct wrapper_service_bzip2_st wrapper_handler_bzip2=
+#include <providers/bzlib.h>
+static struct provider_service_bzip2_st provider_handler_bzip2=
 {
   DEFINE_BZ2_bzBuffToBuffCompress([]) { return -1; },
   DEFINE_BZ2_bzBuffToBuffDecompress([]) { return -1; },
@@ -264,10 +264,10 @@ static struct wrapper_service_bzip2_st wrapper_handler_bzip2=
 
   false // .is_loaded
 };
-struct wrapper_service_bzip2_st *wrapper_service_bzip2= &wrapper_handler_bzip2;
+struct provider_service_bzip2_st *provider_service_bzip2= &provider_handler_bzip2;
 
-#include <wrappers/snappy-c.h>
-static struct wrapper_service_snappy_st wrapper_handler_snappy=
+#include <providers/snappy-c.h>
+static struct provider_service_snappy_st provider_handler_snappy=
 {
   DEFINE_snappy_max_compressed_length([]) -> size_t { return 0; },
   DEFINE_snappy_compress([]) { return SNAPPY_INVALID_INPUT; },
@@ -276,10 +276,10 @@ static struct wrapper_service_snappy_st wrapper_handler_snappy=
 
   false // .is_loaded
 };
-struct wrapper_service_snappy_st *wrapper_service_snappy= &wrapper_handler_snappy;
+struct provider_service_snappy_st *provider_service_snappy= &provider_handler_snappy;
 
-#include <wrappers/lz4.h>
-static struct wrapper_service_lz4_st wrapper_handler_lz4=
+#include <providers/lz4.h>
+static struct provider_service_lz4_st provider_handler_lz4=
 {
   DEFINE_LZ4_compressBound([]) { return 0; },
   DEFINE_LZ4_compress_default([]) { return 0; },
@@ -287,7 +287,7 @@ static struct wrapper_service_lz4_st wrapper_handler_lz4=
 
   false // .is_loaded
 };
-struct wrapper_service_lz4_st *wrapper_service_lz4= &wrapper_handler_lz4;
+struct provider_service_lz4_st *provider_service_lz4= &provider_handler_lz4;
 
 static struct st_service_ref list_of_services[]=
 {
@@ -314,9 +314,9 @@ static struct st_service_ref list_of_services[]=
   { "wsrep_service",               VERSION_wsrep,               &wsrep_handler },
   { "json_service",                VERSION_json,                &json_handler },
   { "thd_mdl_service",             VERSION_thd_mdl,             &thd_mdl_handler },
-  { "wrapper_service_bzip2",       VERSION_wrapper_bzip2,       &wrapper_handler_bzip2 },
-  { "wrapper_service_lz4",         VERSION_wrapper_lz4,         &wrapper_handler_lz4 },
-  { "wrapper_service_lzma",        VERSION_wrapper_lzma,        &wrapper_handler_lzma },
-  { "wrapper_service_lzo",         VERSION_wrapper_lzo,         &wrapper_handler_lzo },
-  { "wrapper_service_snappy",      VERSION_wrapper_snappy,      &wrapper_handler_snappy }
+  { "provider_service_bzip2",      VERSION_provider_bzip2,      &provider_handler_bzip2 },
+  { "provider_service_lz4",        VERSION_provider_lz4,        &provider_handler_lz4 },
+  { "provider_service_lzma",       VERSION_provider_lzma,       &provider_handler_lzma },
+  { "provider_service_lzo",        VERSION_provider_lzo,        &provider_handler_lzo },
+  { "provider_service_snappy",     VERSION_provider_snappy,     &provider_handler_snappy }
 };
