@@ -6,6 +6,6 @@ IF (HAVE_LZO_H AND HAVE_LZO_COMPRESS)
   LIST(REMOVE_ITEM dirs ${CMAKE_SOURCE_DIR}/include/wrappers)
   SET_PROPERTY(DIRECTORY PROPERTY INCLUDE_DIRECTORIES "${dirs}")
 
-  MYSQL_ADD_PLUGIN(lzo_plugin plugin.c MODULE_OUTPUT_NAME lzo
-    COMPONENT lzo LINK_LIBRARIES lzo2 CONFIG lzo.cnf)
+  MYSQL_ADD_PLUGIN(provider_lzo plugin.c MODULE_OUTPUT_NAME provider_lzo
+    COMPONENT provider_lzo LINK_LIBRARIES lzo2 CONFIG provider_lzo.cnf)
 ENDIF()

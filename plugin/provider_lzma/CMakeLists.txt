@@ -7,6 +7,6 @@ IF (HAVE_LZMA_DECODE AND HAVE_LZMA_ENCODE AND HAVE_LZMA_H)
   LIST(REMOVE_ITEM dirs ${CMAKE_SOURCE_DIR}/include/wrappers)
   SET_PROPERTY(DIRECTORY PROPERTY INCLUDE_DIRECTORIES "${dirs}")
 
-  MYSQL_ADD_PLUGIN(lzma_plugin plugin.c MODULE_OUTPUT_NAME lzma
-    COMPONENT lzma LINK_LIBRARIES lzma CONFIG lzma.cnf)
+  MYSQL_ADD_PLUGIN(provider_lzma plugin.c MODULE_OUTPUT_NAME provider_lzma
+    COMPONENT provider_lzma LINK_LIBRARIES lzma CONFIG provider_lzma.cnf)
 ENDIF()
