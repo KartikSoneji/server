@@ -18,16 +18,16 @@
 #include <mysql/plugin.h>
 #include <snappy-c.h>
 #define SNAPPY_C
-#include <wrappers/snappy-c.h>
+#include <providers/snappy-c.h>
 
 static int init(void* h)
 {
-  wrapper_service_snappy->snappy_max_compressed_length_ptr= snappy_max_compressed_length;
-  wrapper_service_snappy->snappy_compress_ptr= snappy_compress;
-  wrapper_service_snappy->snappy_uncompressed_length_ptr= snappy_uncompressed_length;
-  wrapper_service_snappy->snappy_uncompress_ptr= snappy_uncompress;
+  provider_service_snappy->snappy_max_compressed_length_ptr= snappy_max_compressed_length;
+  provider_service_snappy->snappy_compress_ptr= snappy_compress;
+  provider_service_snappy->snappy_uncompressed_length_ptr= snappy_uncompressed_length;
+  provider_service_snappy->snappy_uncompress_ptr= snappy_uncompress;
 
-  wrapper_service_snappy->is_loaded = true;
+  provider_service_snappy->is_loaded = true;
 
   return 0;
 }
@@ -38,7 +38,7 @@ maria_declare_plugin(snappy)
 {
   MYSQL_DAEMON_PLUGIN,
   &info,
-  "snappy",
+  "provider_snappy",
   "Sergei Golubchik",
   "SNAPPY compression service",
   PLUGIN_LICENSE_GPL,

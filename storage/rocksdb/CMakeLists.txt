@@ -124,9 +124,9 @@ else()
   SET(ATOMIC_EXTRA_LIBS)
 endif()
 
-# don't use compression wrappers, there are standalone executables below
+# don't use compression providers, there are standalone executables below
 GET_PROPERTY(dirs DIRECTORY PROPERTY INCLUDE_DIRECTORIES)
-LIST(REMOVE_ITEM dirs ${CMAKE_SOURCE_DIR}/include/wrappers)
+LIST(REMOVE_ITEM dirs ${CMAKE_SOURCE_DIR}/include/providers)
 SET_PROPERTY(DIRECTORY PROPERTY INCLUDE_DIRECTORIES "${dirs}")
 
 MYSQL_ADD_PLUGIN(rocksdb ${ROCKSDB_SE_SOURCES} MODULE_ONLY STORAGE_ENGINE

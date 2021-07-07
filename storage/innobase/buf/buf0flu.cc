@@ -588,9 +588,9 @@ static void buf_tmp_reserve_compression_buf(buf_tmp_buffer_t* slot)
   /* Both Snappy and LZO compression methods require that the output
   buffer be bigger than input buffer. Adjust the allocated size. */
   ulint size= srv_page_size;
-  if (wrapper_service_lzo->is_loaded)
+  if (provider_service_lzo->is_loaded)
     size+= LZO1X_1_15_MEM_COMPRESS;
-  else if (wrapper_service_snappy->is_loaded)
+  else if (provider_service_snappy->is_loaded)
     size= snappy_max_compressed_length(size);
   slot->comp_buf= static_cast<byte*>(aligned_malloc(size, srv_page_size));
 }

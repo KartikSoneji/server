@@ -17,20 +17,20 @@
 #include <mysql_version.h>
 #include <mysql/plugin.h>
 #include <bzlib.h>
-#include <wrappers/bzlib.h>
+#include <providers/bzlib.h>
 
 static int init(void* h)
 {
-  wrapper_service_bzip2->BZ2_bzBuffToBuffCompress_ptr= BZ2_bzBuffToBuffCompress;
-  wrapper_service_bzip2->BZ2_bzBuffToBuffDecompress_ptr= BZ2_bzBuffToBuffDecompress;
-  wrapper_service_bzip2->BZ2_bzCompress_ptr= BZ2_bzCompress;
-  wrapper_service_bzip2->BZ2_bzCompressEnd_ptr= BZ2_bzCompressEnd;
-  wrapper_service_bzip2->BZ2_bzCompressInit_ptr= BZ2_bzCompressInit;
-  wrapper_service_bzip2->BZ2_bzDecompress_ptr= BZ2_bzDecompress;
-  wrapper_service_bzip2->BZ2_bzDecompressEnd_ptr= BZ2_bzDecompressEnd;
-  wrapper_service_bzip2->BZ2_bzDecompressInit_ptr= BZ2_bzDecompressInit;
+  provider_service_bzip2->BZ2_bzBuffToBuffCompress_ptr= BZ2_bzBuffToBuffCompress;
+  provider_service_bzip2->BZ2_bzBuffToBuffDecompress_ptr= BZ2_bzBuffToBuffDecompress;
+  provider_service_bzip2->BZ2_bzCompress_ptr= BZ2_bzCompress;
+  provider_service_bzip2->BZ2_bzCompressEnd_ptr= BZ2_bzCompressEnd;
+  provider_service_bzip2->BZ2_bzCompressInit_ptr= BZ2_bzCompressInit;
+  provider_service_bzip2->BZ2_bzDecompress_ptr= BZ2_bzDecompress;
+  provider_service_bzip2->BZ2_bzDecompressEnd_ptr= BZ2_bzDecompressEnd;
+  provider_service_bzip2->BZ2_bzDecompressInit_ptr= BZ2_bzDecompressInit;
 
-  wrapper_service_bzip2->is_loaded = true;
+  provider_service_bzip2->is_loaded = true;
 
   return 0;
 }
@@ -41,7 +41,7 @@ maria_declare_plugin(bzip2)
 {
   MYSQL_DAEMON_PLUGIN,
   &info,
-  "bzip2",
+  "provider_bzip2",
   "Sergei Golubchik",
   "BZip2 compression service",
   PLUGIN_LICENSE_GPL,

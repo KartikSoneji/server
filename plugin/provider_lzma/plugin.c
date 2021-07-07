@@ -17,14 +17,14 @@
 #include <mysql_version.h>
 #include <mysql/plugin.h>
 #include <lzma.h>
-#include <wrappers/lzma.h>
+#include <providers/lzma.h>
 
 static int init(void* h)
 {
-  wrapper_service_lzma->lzma_stream_buffer_decode_ptr= lzma_stream_buffer_decode;
-  wrapper_service_lzma->lzma_easy_buffer_encode_ptr= lzma_easy_buffer_encode;
+  provider_service_lzma->lzma_stream_buffer_decode_ptr= lzma_stream_buffer_decode;
+  provider_service_lzma->lzma_easy_buffer_encode_ptr= lzma_easy_buffer_encode;
 
-  wrapper_service_lzma->is_loaded = true;
+  provider_service_lzma->is_loaded = true;
 
   return 0;
 }
@@ -35,7 +35,7 @@ maria_declare_plugin(lzma)
 {
   MYSQL_DAEMON_PLUGIN,
   &info,
-  "lzma",
+  "provider_lzma",
   "Sergei Golubchik",
   "LZMA compression service",
   PLUGIN_LICENSE_GPL,

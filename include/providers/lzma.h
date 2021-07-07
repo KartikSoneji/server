@@ -46,8 +46,8 @@ typedef enum
     LZMA_CHECK_SHA256   = 10
 } lzma_check;
 
-#define lzma_stream_buffer_decode(...) wrapper_service_lzma->lzma_stream_buffer_decode_ptr (__VA_ARGS__)
-#define lzma_easy_buffer_encode(...)   wrapper_service_lzma->lzma_easy_buffer_encode_ptr   (__VA_ARGS__)
+#define lzma_stream_buffer_decode(...) provider_service_lzma->lzma_stream_buffer_decode_ptr (__VA_ARGS__)
+#define lzma_easy_buffer_encode(...)   provider_service_lzma->lzma_easy_buffer_encode_ptr   (__VA_ARGS__)
 #endif
 
 #define DEFINE_lzma_stream_buffer_decode(NAME) NAME( \
@@ -73,7 +73,7 @@ typedef enum
     size_t out_size                                  \
 )
 
-struct wrapper_service_lzma_st
+struct provider_service_lzma_st
 {
   lzma_ret DEFINE_lzma_stream_buffer_decode((*lzma_stream_buffer_decode_ptr));
   lzma_ret DEFINE_lzma_easy_buffer_encode((*lzma_easy_buffer_encode_ptr));
@@ -81,7 +81,7 @@ struct wrapper_service_lzma_st
   bool is_loaded;
 };
 
-extern struct wrapper_service_lzma_st *wrapper_service_lzma;
+extern struct provider_service_lzma_st *provider_service_lzma;
 
 
 #ifdef __cplusplus

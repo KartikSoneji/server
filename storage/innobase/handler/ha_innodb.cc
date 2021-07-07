@@ -1032,11 +1032,11 @@ static SHOW_VAR innodb_status_variables[]= {
    &export_vars.innodb_pages_encrypted, SHOW_LONGLONG},
   {"num_pages_decrypted",
    &export_vars.innodb_pages_decrypted, SHOW_LONGLONG},
-  {"have_lz4",        &(wrapper_service_lz4->is_loaded),    SHOW_BOOL},
-  {"have_lzo",        &(wrapper_service_lzo->is_loaded),    SHOW_BOOL},
-  {"have_lzma",       &(wrapper_service_lzma->is_loaded),   SHOW_BOOL},
-  {"have_bzip2",      &(wrapper_service_bzip2->is_loaded),  SHOW_BOOL},
-  {"have_snappy",     &(wrapper_service_snappy->is_loaded), SHOW_BOOL},
+  {"have_lz4",        &(provider_service_lz4->is_loaded),    SHOW_BOOL},
+  {"have_lzo",        &(provider_service_lzo->is_loaded),    SHOW_BOOL},
+  {"have_lzma",       &(provider_service_lzma->is_loaded),   SHOW_BOOL},
+  {"have_bzip2",      &(provider_service_bzip2->is_loaded),  SHOW_BOOL},
+  {"have_snappy",     &(provider_service_snappy->is_loaded), SHOW_BOOL},
   {"have_punch_hole", &innodb_have_punch_hole, SHOW_BOOL},
 
   /* Defragmentation */
@@ -3700,35 +3700,35 @@ static int innodb_init_params()
 		DBUG_RETURN(HA_ERR_INITIALIZATION);
 	}
 
-	if (!wrapper_service_lz4->is_loaded && innodb_compression_algorithm == PAGE_LZ4_ALGORITHM) {
+	if (!provider_service_lz4->is_loaded && innodb_compression_algorithm == PAGE_LZ4_ALGORITHM) {
 		sql_print_error("InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
 				"InnoDB: liblz4 is not installed. \n",
 				innodb_compression_algorithm);
 		DBUG_RETURN(HA_ERR_INITIALIZATION);
 	}
 
-	if (!wrapper_service_lzo->is_loaded && innodb_compression_algorithm == PAGE_LZO_ALGORITHM) {
+	if (!provider_service_lzo->is_loaded && innodb_compression_algorithm == PAGE_LZO_ALGORITHM) {
 		sql_print_error("InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
 				"InnoDB: liblzo is not installed. \n",
 				innodb_compression_algorithm);
 		DBUG_RETURN(HA_ERR_INITIALIZATION);
 	}
 
-	if (!wrapper_service_lzma->is_loaded && innodb_compression_algorithm == PAGE_LZMA_ALGORITHM) {
+	if (!provider_service_lzma->is_loaded && innodb_compression_algorithm == PAGE_LZMA_ALGORITHM) {
 		sql_print_error("InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
 				"InnoDB: liblzma is not installed. \n",
 				innodb_compression_algorithm);
 		DBUG_RETURN(HA_ERR_INITIALIZATION);
 	}
 
-	if (!wrapper_service_bzip2->is_loaded && innodb_compression_algorithm == PAGE_BZIP2_ALGORITHM) {
+	if (!provider_service_bzip2->is_loaded && innodb_compression_algorithm == PAGE_BZIP2_ALGORITHM) {
 		sql_print_error("InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
 				"InnoDB: libbz2 is not installed. \n",
 				innodb_compression_algorithm);
 		DBUG_RETURN(HA_ERR_INITIALIZATION);
 	}
 
-	if (!wrapper_service_snappy->is_loaded && innodb_compression_algorithm == PAGE_SNAPPY_ALGORITHM) {
+	if (!provider_service_snappy->is_loaded && innodb_compression_algorithm == PAGE_SNAPPY_ALGORITHM) {
 		sql_print_error("InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
 				"InnoDB: libsnappy is not installed. \n",
 				innodb_compression_algorithm);
@@ -20696,7 +20696,7 @@ innodb_compression_algorithm_validate(
 
 	ulong compression_algorithm = *reinterpret_cast<ulong*>(save);
 
-	if (!wrapper_service_lz4->is_loaded && compression_algorithm == PAGE_LZ4_ALGORITHM) {
+	if (!provider_service_lz4->is_loaded && compression_algorithm == PAGE_LZ4_ALGORITHM) {
 		push_warning_printf(thd, Sql_condition::WARN_LEVEL_WARN,
 				    HA_ERR_UNSUPPORTED,
 				    "InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
@@ -20705,7 +20705,7 @@ innodb_compression_algorithm_validate(
 		DBUG_RETURN(1);
 	}
 
-	if (!wrapper_service_lzo->is_loaded && compression_algorithm == PAGE_LZO_ALGORITHM) {
+	if (!provider_service_lzo->is_loaded && compression_algorithm == PAGE_LZO_ALGORITHM) {
 		push_warning_printf(thd, Sql_condition::WARN_LEVEL_WARN,
 				    HA_ERR_UNSUPPORTED,
 				    "InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
@@ -20714,7 +20714,7 @@ innodb_compression_algorithm_validate(
 		DBUG_RETURN(1);
 	}
 
-	if (!wrapper_service_lzma->is_loaded && compression_algorithm == PAGE_LZMA_ALGORITHM) {
+	if (!provider_service_lzma->is_loaded && compression_algorithm == PAGE_LZMA_ALGORITHM) {
 		push_warning_printf(thd, Sql_condition::WARN_LEVEL_WARN,
 				    HA_ERR_UNSUPPORTED,
 				    "InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
@@ -20723,7 +20723,7 @@ innodb_compression_algorithm_validate(
 		DBUG_RETURN(1);
 	}
 
-	if (!wrapper_service_bzip2->is_loaded && compression_algorithm == PAGE_BZIP2_ALGORITHM) {
+	if (!provider_service_bzip2->is_loaded && compression_algorithm == PAGE_BZIP2_ALGORITHM) {
 		push_warning_printf(thd, Sql_condition::WARN_LEVEL_WARN,
 				    HA_ERR_UNSUPPORTED,
 				    "InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
@@ -20732,7 +20732,7 @@ innodb_compression_algorithm_validate(
 		DBUG_RETURN(1);
 	}
 
-	if (!wrapper_service_snappy->is_loaded && compression_algorithm == PAGE_SNAPPY_ALGORITHM) {
+	if (!provider_service_snappy->is_loaded && compression_algorithm == PAGE_SNAPPY_ALGORITHM) {
 		push_warning_printf(thd, Sql_condition::WARN_LEVEL_WARN,
 				    HA_ERR_UNSUPPORTED,
 				    "InnoDB: innodb_compression_algorithm = %lu unsupported.\n"
